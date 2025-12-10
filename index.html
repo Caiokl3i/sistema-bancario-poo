@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Banco Digital</title>
+    <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+    <header>
+        <h1 id="nome-banco"></h1>
+    </header>
+
+    <main>
+        <section id="container-cadastro">
+            <h2>Entrar</h2>
+            <form id="cadastro-form">
+                <input type="text" id="cpf" placeholder="CPF" required />
+                <input type="text" id="nome-usuario" placeholder="Seu nome" required />
+                <button type="submit">Entrar</button>
+            </form>
+        </section>
+
+        <section id="container-agencia">
+            <h2>Criar Conta</h2>
+            <form id="agencias-form">
+                <select id="agencias-select">
+                    <option selected disabled value="">Selecione a agência</option>
+                    <option value="Agência Três Lagoas">Agência Três Lagoas</option>
+                    <option value="Agência São Paulo">Agência São Paulo</option>
+                    <option value="Agência Rio de Janeiro">Agência Rio de Janeiro</option>
+                </select>
+                <input type="text" id="chave-pix" placeholder="Chave PIX" required />
+                <button type="submit">Criar Conta</button>
+            </form>
+        </section>
+
+        <section id="container-principal">
+            <h2>Conta Ativa</h2>
+            <p id="conta-ativa"></p>
+
+            <div class="card">
+                <h3>Depósito</h3>
+                <form id="form-deposito">
+                    <input type="number" id="valor-deposito" placeholder="Valor" required />
+                    <button>Depositar</button>
+                </form>
+            </div>
+
+            <div class="card">
+                <h3>Saque</h3>
+                <form id="form-saque">
+                    <input type="number" id="valor-saque" placeholder="Valor" required />
+                    <button>Sacar</button>
+                </form>
+            </div>
+
+            <div class="card">
+                <h3>PIX</h3>
+                <form id="form-pix">
+                    <input type="text" id="pix-chave" placeholder="Chave PIX destino" required />
+                    <input type="number" id="pix-valor" placeholder="Valor" required />
+                    <button>Enviar PIX</button>
+                </form>
+            </div>
+
+            <p id="resposta-transacao"></p>
+
+            <div class="card">
+                <h3>Conta de Exemplo (receber PIX)</h3>
+                <p id="conta-exemplo-info">Nenhuma conta de exemplo criada ainda.</p>
+            </div>
+        </section>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
