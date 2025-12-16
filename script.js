@@ -2,7 +2,10 @@ class BancoCentral {
     static transacoes = [];
 
     static registrar(transacao) {
-        if (transacao.valor > 1000) this.transacoes.push(transacao);
+        if (transacao.valor > 1000) {
+            this.transacoes.push(transacao);
+            mostrarNotificacao()
+        } 
     }
 }
 
@@ -46,7 +49,7 @@ class Conta {
     }
 
     registrar(tipo, valor, destino = "") {
-        const transacao = { tipo, valor, dono: this.dono.nome, destino };
+        const transacao = new Transacao(tipo, valor, this.dono.nome, destino)
         this.transacoes.push(transacao);
         BancoCentral.registrar(transacao);
     }
@@ -70,6 +73,10 @@ class Conta {
         this.registrar("PIX", valorPix, contaDestino.dono.nome);
         return true;
     }
+
+    relatorioTransacoes() {
+        return this.transacoes
+    }
 }
 
 class Cliente {
@@ -77,6 +84,15 @@ class Cliente {
         this.cpf = cpf;
         this.nome = nome;
         this.conta = null;
+    }
+}
+
+class Transacao {
+    constructor(tipo, valor, dono, destino) {
+        this.tipo = tipo
+        this.valor = valor
+        this.dono = dono
+        this.destino = destino
     }
 }
 
@@ -246,3 +262,53 @@ function atualizarContaExemplo() {
 }
 
 atualizarContaExemplo();
+
+/* ----- GERAÇÃO DE RELATÓRIOS ---- */
+document.getElementById('relatorio-transacoes').addEventListener('click', event => {
+    event.preventDefault()
+
+    document.getElementById('relatorio').innerHTML = ''
+
+    const listatransacoes = clienteAtual.conta.relatorioTransacoes()
+
+    if (listatransacoes.length === 0) {
+        document.getElementById('relatorio').innerHTML = 'Sem histórico de transações'
+        return
+    }
+
+    listatransacoes.forEach(transacao => {
+
+        if (transacao.destino === '') {
+            document.getElementById('relatorio').innerHTML += `
+            <div>
+                Tipo da transação - ${transacao.tipo} </br>
+                Valor - R$${transacao.valor} </br>
+                Dono da conta - ${transacao.dono} </br>
+
+                </br></br>
+            </div>
+        `
+        } else {
+            document.getElementById('relatorio').innerHTML += `
+            <div>
+                Tipo da transação - ${transacao.tipo} </br>
+                Valor - R$${transacao.valor} </br>
+                Dono da conta - ${transacao.dono} </br>
+                Para: ${transacao.destino} </br>
+
+                </br></br>
+            </div>
+        `
+        }
+
+
+    });
+})
+
+// Notificação Banco Central
+function mostrarNotificacao(){
+    let notificacao = document.getElementById('notificacao')
+
+    notificacao.classList.add('show')
+    setTimeout(() => notificacao.classList.remove('show'), 2500)
+}

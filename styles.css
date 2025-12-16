@@ -112,3 +112,20 @@ form {
     flex-direction: column;
     gap: 10px;
 }
+
+.notificacao {
+    position: fixed;
+    bottom: 30px;
+    right: -200%;
+    background-color: var(--primary-color);
+    color: var(--light-color);
+    padding: 12px 20px;
+    border-radius: 8px;
+    font-size: 15px;
+    transition: right 0.4s ease;
+}
+
+.notificacao.show {
+    right: 30px;
+    transition: 0.4s ease;
+}
